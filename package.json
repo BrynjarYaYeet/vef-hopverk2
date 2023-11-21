@@ -1,0 +1,16 @@
+{
+  "main": "index.js",
+  "devDependencies": {
+    "browser-sync": "^2.29.3",
+    "eslint": "^8.52.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "prettier": "^3.0.3"
+  },
+  "scripts": {
+    "dev": "browser-sync start --server --files ./js/ styles.css index.html",
+    "lint": "eslint ./src",
+    "prettier": "prettier --write ."
+  }
+}
