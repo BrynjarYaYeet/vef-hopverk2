@@ -5,24 +5,31 @@
  * @returns {HTMLElement} Elementi með gefnum börnum
  */
 
-export async function element(name, attributes = {}, ...children){
-    const e = document.createElement(name);
+export function el(name, attributes = {}, ...children) {
+  const e = document.createElement(name);
 
-    for (const child of children) {
-        if (!child) {
-          console.warn('Child is null', name, attributes);
-          // eslint-disable-next-line no-continue
-          continue;
-        }
+  for (const [attr, value] of Object.entries(attributes)) {
+    if (attr === 'class') {
+      e.classList.add(value); // Handling class attribute separately
+    } else {
+      e.setAttribute(attr, value); // Set other attributes
+    }
+  }
 
-        if (typeof child === 'string' || typeof child === 'number') {
-            e.appendChild(document.createTextNode(child.toString()));
-          } else {
-            e.appendChild(child);
-          }
-        }
-      
-        return e;
+  for (const child of children) {
+    if (!child) {
+      console.warn('Child is null', name, attributes);
+      continue;
+    }
+
+    if (typeof child === 'string' || typeof child === 'number') {
+      e.appendChild(document.createTextNode(child.toString()));
+    } else {
+      e.appendChild(child);
+    }
+  }
+
+  return e;
 }
 
 /**
