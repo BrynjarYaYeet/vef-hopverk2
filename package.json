@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "browser-sync start --server --files ./js/ styles.css index.html",
-    "lint": "eslint ./src",
+    "lint": "eslint ./js",
     "prettier": "prettier --write ."
   }
 }

@@ -9,20 +9,20 @@ export function el(name, attributes = {}, ...children) {
   const e = document.createElement(name);
 
   for (const [attr, value] of Object.entries(attributes)) {
-    if (attr === 'class') {
-      e.classList.add(value); // Handling class attribute separately
+    if (attr === "class") {
+      e.classList.add(value);
     } else {
-      e.setAttribute(attr, value); // Set other attributes
+      e.setAttribute(attr, value);
     }
   }
 
   for (const child of children) {
     if (!child) {
-      console.warn('Child is null', name, attributes);
+      console.warn("Child is null", name, attributes);
       continue;
     }
 
-    if (typeof child === 'string' || typeof child === 'number') {
+    if (typeof child === "string" || typeof child === "number") {
       e.appendChild(document.createTextNode(child.toString()));
     } else {
       e.appendChild(child);
@@ -37,11 +37,11 @@ export function el(name, attributes = {}, ...children) {
  * @param {HTMLElement} element Element sem á að tæma
  */
 export function empty(element) {
-    if (!element || !element.firstChild) {
-      return;
-    }
-  
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
+  if (!element || !element.firstChild) {
+    return;
+  }
+
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
 }
