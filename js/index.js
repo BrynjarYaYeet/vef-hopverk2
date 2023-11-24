@@ -1,5 +1,6 @@
 import { renderAll, renderOneProduct } from "./auka/ui.js";
 import { empty } from "./auka/element.js";
+import { getThreeProductsByCategory } from "./auka/api.js";
 
 async function onSearch(e) {
   e.preventDefault();
@@ -44,5 +45,4 @@ window.onpopstate = () => {
 
 // Athugum í byrjun hvað eigi að birta.
 route();
-
 //window.onload = route;
