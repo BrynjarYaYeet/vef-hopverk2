@@ -1,4 +1,8 @@
-import { getAllProds, getProductById, getThreeProductsByCategory } from "./api.js";
+import {
+  getAllProds,
+  getProductById,
+  getThreeProductsByCategory,
+} from "./api.js";
 import { el } from "./element.js";
 
 function setLoading(parentElement, takki) {
@@ -91,7 +95,7 @@ function createOneProduct(results) {
       ),
       el("img", { src: results.image, alt: "mynd", class: "mynd_ein_vara" }),
       el("span", { class: "desc_ein_vara" }, results.description),
-      el("a", { href: '/products' }, 'Til baka'),
+      el("a", { href: "/products" }, "Til baka"),
     );
     wrap.appendChild(item);
   }
@@ -130,7 +134,52 @@ function createThreeProducts(results) {
     }
   }
 
-  return el("div", { class: "results" }, el("h2", {}, "Fleyri vörur eins og þessi!"), wrap);
+  return el(
+    "div",
+    { class: "results-recommend" },
+    el("h2", {}, "Fleyri vörur eins og þessi!"),
+    wrap,
+  );
+}
+
+function createNewestProducts(array) {
+  const wrap = el("section", { class: "wrapper" });
+
+  if (!array) {
+    // Error state
+    const item = el("span", { class: "result" }, "Villa við að sækja gögn.");
+    wrap.appendChild(item);
+  } else {
+    // Empty state
+    if (array.length === 0) {
+      const item = el("span", { class: "result" }, "Ekkert fannst.");
+      wrap.appendChild(item);
+    }
+
+    // Data state
+    for (const result of array) {
+      const item = el(
+        "div",
+        { class: "box" },
+        el("a", { href: `/?id=${result.id}` }, result.title),
+        el("span", { class: "verd_allar_vorur" }, result.price, "kr."),
+        el("span", { class: "category_allar_vorur" }, result.category_title),
+        el("img", {
+          src: result.image,
+          alt: "mynd",
+          class: "mynd_allar_vorur",
+        }),
+      );
+      wrap.appendChild(item);
+    }
+  }
+
+  return el(
+    "div",
+    { class: "results-recommend" },
+    el("h2", {}, "Nýjustu vörur!"),
+    wrap,
+  );
 }
 
 export async function renderAll(parentElement) {
@@ -149,11 +198,17 @@ export async function renderAll(parentElement) {
 
   const resultsElement = mainElement.querySelector(".wrapper");
   const resultsElementHeader = mainElement.querySelector(".results");
+  const resultsRecommendHeader =
+    mainElement.querySelector(".results-recommend");
   if (resultsElement) {
     resultsElement.remove();
   }
   if (resultsElementHeader) {
     resultsElementHeader.remove();
+  }
+
+  if (resultsRecommendHeader) {
+    resultsRecommendHeader.remove();
   }
 
   setLoading(mainElement, headerElement);
@@ -180,8 +235,18 @@ export async function renderOneProduct(parentElement, id) {
   }
 
   const resultsElement = mainElement.querySelector(".wrapper");
+  const resultsElementHeader = mainElement.querySelector(".results");
+  const resultsRecommendHeader =
+    mainElement.querySelector(".results-recommend");
   if (resultsElement) {
     resultsElement.remove();
+  }
+  if (resultsElementHeader) {
+    resultsElementHeader.remove();
+  }
+
+  if (resultsRecommendHeader) {
+    resultsRecommendHeader.remove();
   }
 
   setLoading(mainElement, headerElement);
@@ -196,8 +261,15 @@ export async function renderOneProduct(parentElement, id) {
   mainElement.appendChild(resultsCateegoryEl);
 }
 
-export async function renderFrontPage(parentElement){
+function processObjectsBasedOnDate(arrayOfObjects) {
+  arrayOfObjects.sort((a, b) => new Date(b.created) - new Date(a.created));
 
+  const sixNewestObjects = arrayOfObjects.slice(0, 6);
+
+  return sixNewestObjects;
+}
+
+export async function renderFrontPage(parentElement) {
   const mainElement = parentElement.querySelector("main");
   const headerElement = parentElement.querySelector("header");
 
@@ -213,6 +285,8 @@ export async function renderFrontPage(parentElement){
 
   const resultsElement = mainElement.querySelector(".wrapper");
   const resultsElementHeader = mainElement.querySelector(".results");
+  const resultsRecommendHeader =
+    mainElement.querySelector(".results-recommend");
   if (resultsElement) {
     resultsElement.remove();
   }
@@ -220,9 +294,16 @@ export async function renderFrontPage(parentElement){
     resultsElementHeader.remove();
   }
 
+  if (resultsRecommendHeader) {
+    resultsRecommendHeader.remove();
+  }
   setLoading(mainElement, headerElement);
   const results = await getAllProds();
   setNotLoading(mainElement, headerElement);
 
-  const dates = dateStrings.map(dateString => new Date(dateString));
+  const newObjects = processObjectsBasedOnDate(results.items);
+
+  const resultsNewestEl = createNewestProducts(newObjects);
+
+  mainElement.appendChild(resultsNewestEl);
 }

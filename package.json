@@ -1,7 +1,10 @@
 {
   "main": "index.js",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "browser-sync": "^2.29.3",
+    "build": "^0.1.4",
+    "concurrently": "^8.2.2",
     "eslint": "^8.52.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.0.0",
@@ -10,7 +13,11 @@
   },
   "scripts": {
     "dev": "browser-sync start --server --files ./js/ styles.css index.html",
-    "lint": "eslint ./js",
-    "prettier": "prettier --write ."
+    "lint": "eslint ./js styles.css index.html",
+    "prettier": "prettier --write .",
+    "copy:html": "cpy ./*.html ./build/",
+    "copy:css": "cpy ./*.css ./build/",
+    "copy:js": "cpy js ./build/",
+    "build": "concurrently npm:copy:*"
   }
 }

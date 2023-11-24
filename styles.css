@@ -106,7 +106,8 @@ html::before {
   object-fit: cover;
 }
 
-.results {
+.results,
+.results-recommend {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -114,7 +115,8 @@ html::before {
   align-items: center;
   margin-top: var(--spacing);
 }
-.results h2 {
+.results h2,
+.results-recommend h2 {
   font-size: 3vw;
 }
 
@@ -163,7 +165,7 @@ html::before {
   color: rgba(0, 0, 0, 0.5);
 }
 
-.product-wrapper{
+.product-wrapper {
   display: flex;
   align-content: center;
   justify-content: center;
@@ -210,7 +212,7 @@ html::before {
   margin-bottom: var(--spacing);
 }
 
-.desc_ein_vara{
+.desc_ein_vara {
   max-width: 50%;
   font-size: 2vw;
   margin-bottom: var(--spacing);
@@ -220,7 +222,7 @@ html::before {
   padding: var(--spacing);
 }
 
-.product-box a{
+.product-box a {
   font-size: 2vw;
   margin-bottom: var(--spacing);
   text-decoration: none;

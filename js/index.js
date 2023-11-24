@@ -1,6 +1,5 @@
-import { renderAll, renderOneProduct } from "./auka/ui.js";
+import { renderAll, renderFrontPage, renderOneProduct } from "./auka/ui.js";
 import { empty } from "./auka/element.js";
-import { getThreeProductsByCategory } from "./auka/api.js";
 
 async function onSearch(e) {
   e.preventDefault();
@@ -33,6 +32,8 @@ function route() {
     renderAll(document.body);
   } else if (id) {
     renderOneProduct(document.body, id);
+  } else if (currentURL) {
+    renderFrontPage(document.body);
   }
 }
 
