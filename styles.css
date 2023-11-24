@@ -70,7 +70,7 @@ html::before {
   max-height: var(--width-offset);
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: var(--spacing);
 }
 .header h1 {
   color: white;
@@ -85,7 +85,7 @@ html::before {
   padding: 0;
   color: rgb(1, 139, 209);
   cursor: pointer;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing);
 }
 
 .header button:hover {
@@ -112,7 +112,7 @@ html::before {
   flex-wrap: nowrap;
 
   align-items: center;
-  margin-top: var(--offset);
+  margin-top: var(--spacing);
 }
 .results h2 {
   font-size: 3vw;
@@ -126,8 +126,8 @@ html::before {
   gap: var(--vertical-space);
   width: var(--width-offset);
   max-width: var(--max-width);
-  margin-top: var(--offset);
-  margin-bottom: var(--offset);
+  margin-top: var(--spacing);
+  margin-bottom: var(--spacing);
 
   justify-items: center;
   align-items: center;
@@ -147,20 +147,26 @@ html::before {
 .box a {
   font-size: 2vw;
   text-decoration: none;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing);
 }
 .box .verd_allar_vorur {
   font-weight: bold;
   font-size: 1.5vw;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing);
 }
 
 .box .category_allar_vorur {
   border: 0.5px solid rgba(0, 0, 0, 0.5);
   border-radius: 30%;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing);
   padding: 5px;
   color: rgba(0, 0, 0, 0.5);
+}
+
+.product-wrapper{
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .product-box {
@@ -169,6 +175,7 @@ html::before {
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
+  max-width: 80%;
 }
 
 .product-box .verd-og-category {
@@ -184,7 +191,7 @@ html::before {
 .product-box .category_ein_vara {
   border: 0.5px solid rgba(0, 0, 0, 0.5);
   border-radius: 30%;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing);
   padding: 5px;
   color: rgba(0, 0, 0, 0.5);
   font-size: 2.5vw;
@@ -193,5 +200,28 @@ html::before {
 .product-box .verd_ein_vara {
   font-weight: bold;
   font-size: 2.5vw;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing);
+}
+
+.mynd_ein_vara {
+  max-width: 50%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-bottom: var(--spacing);
+}
+
+.desc_ein_vara{
+  max-width: 50%;
+  font-size: 2vw;
+  margin-bottom: var(--spacing);
+  border: 2px solid lightgray;
+  border-radius: 3%;
+  background-color: rgb(212, 198, 198, 0.5);
+  padding: var(--spacing);
+}
+
+.product-box a{
+  font-size: 2vw;
+  margin-bottom: var(--spacing);
+  text-decoration: none;
 }
